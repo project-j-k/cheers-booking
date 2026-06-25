@@ -240,13 +240,14 @@ const state = { type: '', menuKey: '', menuName: '', singlePrice: '', ticketBest
 
 const BASE_RESERVE = 'https://bodycarestudiocheers.stores.jp/reserve/f3275c5ca86ccd75c033/'
 const BASE_PRODUCT = 'https://bodycarestudiocheers.stores.jp/products/'
+const HASH = '#pageContent'
 const SINGLE_URLS = {
-  premium:  BASE_RESERVE + '2707637',
-  standard: BASE_RESERVE + '1346461',
-  yoga:     BASE_RESERVE + '3222074',
-  pilates:  BASE_RESERVE + '4973648',
-  barre:    BASE_RESERVE + '4390043',
-  massage:  BASE_RESERVE + '3804065',
+  premium:  BASE_RESERVE + '2707637' + HASH,
+  standard: BASE_RESERVE + '1346461' + HASH,
+  yoga:     BASE_RESERVE + '3222074' + HASH,
+  pilates:  BASE_RESERVE + '4973648' + HASH,
+  barre:    BASE_RESERVE + '4390043' + HASH,
+  massage:  BASE_RESERVE + '3804065' + HASH,
 }
 const TICKET_IDS = {
   premium:  { '月4回': '446017', '月3回': '336649', '月2回': '373376', '月1回': '571645' },
@@ -262,7 +263,7 @@ function goToStore() {
     url = SINGLE_URLS[state.menuKey]
   } else {
     const id = (TICKET_IDS[state.menuKey] || {})[state.freqName]
-    url = id ? BASE_PRODUCT + id : null
+    url = id ? BASE_PRODUCT + id + HASH : null
   }
   if (url) window.open(url, '_blank')
 }

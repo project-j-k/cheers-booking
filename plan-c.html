@@ -222,14 +222,15 @@ const state = { mode: '', type: '', menuName: '', price: '', usageLabel: '', dat
 
 const BASE_RESERVE = 'https://bodycarestudiocheers.stores.jp/reserve/f3275c5ca86ccd75c033/'
 const BASE_PRODUCT = 'https://bodycarestudiocheers.stores.jp/products/'
+const HASH = '#pageContent'
 const NAME_TO_SINGLE_URL = {
-  'パーソナルプレミアム90分':           BASE_RESERVE + '2707637',
-  'パーソナルスタンダード60分':          BASE_RESERVE + '1346461',
-  '初回限定 パーソナルスタンダード60分': BASE_PRODUCT + '108104',
-  'リラックスヨガ':                     BASE_RESERVE + '3222074',
-  'オトナピラティス':                   BASE_RESERVE + '4973648',
-  'バレトン':                           BASE_RESERVE + '4390043',
-  'タイマッサージ60分':                 BASE_RESERVE + '3804065',
+  'パーソナルプレミアム90分':           BASE_RESERVE + '2707637' + HASH,
+  'パーソナルスタンダード60分':          BASE_RESERVE + '1346461' + HASH,
+  '初回限定 パーソナルスタンダード60分': BASE_PRODUCT + '108104'  + HASH,
+  'リラックスヨガ':                     BASE_RESERVE + '3222074' + HASH,
+  'オトナピラティス':                   BASE_RESERVE + '4973648' + HASH,
+  'バレトン':                           BASE_RESERVE + '4390043' + HASH,
+  'タイマッサージ60分':                 BASE_RESERVE + '3804065' + HASH,
 }
 const NAME_TO_KEY = {
   'パーソナルプレミアム90分': 'premium',
@@ -342,7 +343,7 @@ function selectTicket(name, price, freqLabel) {
   state.usageLabel = '回数券（' + freqLabel + '）'
   const key = NAME_TO_KEY[name] || 'yoga'
   const id = (TICKET_IDS[key] || {})[freqLabel]
-  state.storeUrl = id ? BASE_PRODUCT + id : ''
+  state.storeUrl = id ? BASE_PRODUCT + id + HASH : ''
   buildConfirmTicket()
   goTo('s5', 5)
 }

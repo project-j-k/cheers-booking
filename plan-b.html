@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>案B：目的ファースト | Cheers 予約</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app">
+  <div class="header">
+    <h1>BodyCare Studio Cheers</h1>
+    <div class="subtitle">案B：目的・状態ファースト型</div>
+  </div>
+
+  <div class="step-indicator">
+    <div class="step-dot active" id="sd1">1</div>
+    <div class="step-line" id="sl1"></div>
+    <div class="step-dot" id="sd2">2</div>
+    <div class="step-line" id="sl2"></div>
+    <div class="step-dot" id="sd3">3</div>
+    <div class="step-line" id="sl3"></div>
+    <div class="step-dot" id="sd4">4</div>
+  </div>
+
+  <!-- ① 目的選択 -->
+  <div class="screen active" id="s1">
+    <p class="screen-title">今日はどうしたい？</p>
+    <p class="screen-sub">目的に合ったメニューを提案するわ</p>
+
+    <div class="card" onclick="selectGoal('fix')">
+      <span class="card-icon">🦴</span>
+      <div class="card-title">体の歪みを整えたい</div>
+      <div class="card-desc">骨格から根本的に見直したい。猫背・骨盤の歪みが気になる方に。</div>
+    </div>
+
+    <div class="card" onclick="selectGoal('relax')">
+      <span class="card-icon">🌿</span>
+      <div class="card-title">リラックスしたい</div>
+      <div class="card-desc">のびのび動いて、心と体をほぐしたい。初心者でも安心よ。</div>
+    </div>
+
+    <div class="card" onclick="selectGoal('fatigue')">
+      <span class="card-icon">🛁</span>
+      <div class="card-title">疲れをしっかり取りたい</div>
+      <div class="card-desc">仕事や育児で疲れた体を施術でリセットしたい方に。</div>
+    </div>
+
+    <div class="card" onclick="selectGoal('habit')">
+      <span class="card-icon">📅</span>
+      <div class="card-title">定期的に通いたい</div>
+      <div class="card-desc">続けることで体を変えたい。回数券でお得に通えるわ。</div>
+    </div>
+
+    <div class="spacer"></div>
+    <a href="index.html" class="btn-back">← トップに戻る</a>
+  </div>
+
+  <!-- ② 推奨メニュー提示 -->
+  <div class="screen" id="s2">
+    <button class="btn-back" onclick="goTo('s1', 1)">← 戻る</button>
+    <p class="screen-title" id="s2-title">おすすめのメニューはこれよ</p>
+    <p class="screen-sub" id="s2-sub"></p>
+    <div id="s2-cards"></div>
+  </div>
+
+  <!-- ③ 単発 or 回数券 -->
+  <div class="screen" id="s3">
+    <button class="btn-back" onclick="goTo('s2', 2)">← 戻る</button>
+    <p class="screen-title">どんな使い方をする？</p>
+    <p class="screen-sub" id="s3-menu-name"></p>
+
+    <div class="card" onclick="selectUsage('single')">
+      <span class="card-icon">✨</span>
+      <div class="card-title">今回1回だけ予約する</div>
+      <div class="card-desc">まず体験してみたい方・予定が不定期な方に。当日・クレジット払い対応。</div>
+      <div style="margin-top:10px;">
+        <span class="price-badge" id="single-price">—</span>
+        <span class="price-unit">1回料金</span>
+      </div>
+    </div>
+
+    <div class="card" id="ticket-card" onclick="selectUsage('ticket')">
+      <span class="card-icon">🎟️</span>
+      <div class="card-title">回数券を購入して通う</div>
+      <div class="card-desc">定期的に通うほどお得になるわ。まとめて購入で1回あたりの料金が下がるの。</div>
+      <div style="margin-top:10px;">
+        <span class="price-badge" id="ticket-price">—</span>
+        <span class="price-unit">1回あたり（最安）</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ④-A 単発日時ダミー -->
+  <div class="screen" id="s4-single">
+    <button class="btn-back" onclick="goTo('s3', 3)">← 戻る</button>
+    <p class="screen-title">日時を選んでね</p>
+    <p class="screen-sub">※ デモ画面のため実際の予約はできないわ</p>
+
+    <div class="card" onclick="selectDate('6/28（土）10:00')">
+      <div class="card-row">
+        <div class="card-title">6/28（土） 10:00〜</div>
+        <span class="tag tag-group">○ 空き</span>
+      </div>
+    </div>
+    <div class="card" onclick="selectDate('6/28（土）14:00')">
+      <div class="card-row">
+        <div class="card-title">6/28（土） 14:00〜</div>
+        <span class="tag tag-group">○ 空き</span>
+      </div>
+    </div>
+    <div class="card" onclick="selectDate('6/29（日）11:00')">
+      <div class="card-row">
+        <div class="card-title">6/29（日） 11:00〜</div>
+        <span class="tag tag-group">○ 空き</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ④-B 回数券 -->
+  <div class="screen" id="s4-ticket">
+    <button class="btn-back" onclick="goTo('s3', 3)">← 戻る</button>
+    <p class="screen-title">月に何回通う？</p>
+    <p class="screen-sub" id="s4t-sub"></p>
+    <div class="freq-grid" id="freqGrid"></div>
+  </div>
+
+  <!-- ⑤ 確定 -->
+  <div class="screen" id="s5">
+    <button class="btn-back" onclick="goToS4Back()">← 戻る</button>
+    <p class="screen-title">内容を確認してね</p>
+
+    <div class="confirm-box">
+      <div class="confirm-row">
+        <span class="confirm-label">メニュー</span>
+        <span class="confirm-value" id="cf-menu">—</span>
+      </div>
+      <div class="confirm-row">
+        <span class="confirm-label">ご利用</span>
+        <span class="confirm-value" id="cf-usage">—</span>
+      </div>
+      <div class="confirm-row">
+        <span class="confirm-label">料金</span>
+        <span class="confirm-value" id="cf-price">—</span>
+      </div>
+      <div class="confirm-row" id="cf-date-row">
+        <span class="confirm-label">日時</span>
+        <span class="confirm-value" id="cf-date">—</span>
+      </div>
+    </div>
+    <div class="notice">※ デモ用のダミー確定画面よ。実際の予約はスタジオの予約サイトから行ってね。</div>
+    <button class="btn-primary" onclick="goTo('s6', 5)">予約を確定する</button>
+  </div>
+
+  <!-- 完了 -->
+  <div class="screen" id="s6" style="justify-content:center; align-items:center; text-align:center; gap:16px;">
+    <span class="success-icon">🎉</span>
+    <p class="success-title">予約が完了したわ！</p>
+    <p class="success-sub">スタジオでお待ちしているわ。<br>当日は動きやすい服装でいらしてね。</p>
+    <a href="index.html" class="btn-primary" style="margin-top:16px;">トップに戻る</a>
+  </div>
+</div>
+
+<script>
+const state = { goal: '', menuKey: '', menuName: '', singlePrice: '', ticketBestPrice: '', usage: '', date: '', freqName: '', freqPrice: '' }
+
+const GOAL_MAP = {
+  fix: {
+    title: '体の歪みを整えたいあなたへ',
+    sub: 'パーソナルトレーニングがおすすめよ',
+    menus: [
+      { key:'premium', name:'パーソナルプレミアム90分', desc:'リフォーマー＋骨格リメイク。本格的に変えたい方に。', singlePrice:'9,000円', ticketBest:'8,000円', tag:'tag-personal', recommended:true },
+      { key:'standard', name:'パーソナルスタンダード60分', desc:'骨格リメイクトレーニング。まず試したい方にも。', singlePrice:'7,000円', ticketBest:'6,000円', tag:'tag-personal', recommended:false },
+    ]
+  },
+  relax: {
+    title: 'リラックスしたいあなたへ',
+    sub: 'グループレッスンでゆったり動こう',
+    menus: [
+      { key:'yoga', name:'リラックスヨガ', desc:'呼吸と伸びでリラックス。初心者でも大丈夫よ。', singlePrice:'2,200円', ticketBest:'1,800円', tag:'tag-group', recommended:true },
+      { key:'pilates', name:'オトナピラティス', desc:'体幹を整えながらリラックス。', singlePrice:'2,200円', ticketBest:'1,800円', tag:'tag-group', recommended:false },
+      { key:'barre', name:'バレトン', desc:'優雅に引き締め、気持ちもほぐれるわ。', singlePrice:'2,200円', ticketBest:'1,800円', tag:'tag-group', recommended:false },
+    ]
+  },
+  fatigue: {
+    title: '疲れを取りたいあなたへ',
+    sub: 'タイマッサージで体をリセット',
+    menus: [
+      { key:'massage', name:'タイマッサージ60分', desc:'伝統的なタイ古式マッサージ。疲れが芯から取れるわ。', singlePrice:'6,000円', ticketBest:'6,000円', tag:'tag-massage', recommended:true },
+    ]
+  },
+  habit: {
+    title: '定期的に通いたいあなたへ',
+    sub: '回数券でお得に続けよう',
+    menus: [
+      { key:'premium', name:'パーソナルプレミアム90分', desc:'リフォーマー＋骨格リメイク。回数券で8,000円/回〜。', singlePrice:'9,000円', ticketBest:'8,000円', tag:'tag-personal', recommended:false },
+      { key:'standard', name:'パーソナルスタンダード60分', desc:'骨格リメイク。回数券で6,000円/回〜。', singlePrice:'7,000円', ticketBest:'6,000円', tag:'tag-personal', recommended:false },
+      { key:'yoga', name:'グループレッスン', desc:'ヨガ/ピラティス/バレトン。月5回で1,800円/回〜。', singlePrice:'2,200円', ticketBest:'1,800円', tag:'tag-group', recommended:true },
+    ]
+  }
+}
+
+const TICKET_DATA = {
+  premium:  [ {label:'月4回', price:'32,000円', unit:'8,000円/回'}, {label:'月3回', price:'24,900円', unit:'8,300円/回'}, {label:'月2回', price:'17,000円', unit:'8,500円/回'}, {label:'月1回', price:'9,000円', unit:'9,000円/回'} ],
+  standard: [ {label:'月4回', price:'24,000円', unit:'6,000円/回'}, {label:'月3回', price:'18,900円', unit:'6,300円/回'}, {label:'月2回', price:'13,000円', unit:'6,500円/回'}, {label:'月1回', price:'7,000円', unit:'7,000円/回'} ],
+  yoga:     [ {label:'月5回', price:'9,000円', unit:'1,800円/回'}, {label:'月3回', price:'6,000円', unit:'2,000円/回'}, {label:'月1回', price:'2,200円', unit:'2,200円/回'} ],
+  pilates:  [ {label:'月5回', price:'9,000円', unit:'1,800円/回'}, {label:'月3回', price:'6,000円', unit:'2,000円/回'}, {label:'月1回', price:'2,200円', unit:'2,200円/回'} ],
+  barre:    [ {label:'月5回', price:'9,000円', unit:'1,800円/回'}, {label:'月3回', price:'6,000円', unit:'2,000円/回'}, {label:'月1回', price:'2,200円', unit:'2,200円/回'} ],
+  massage:  [ {label:'1回', price:'6,000円', unit:'6,000円/回'} ],
+}
+
+function updateStepBar(active) {
+  for (let i = 1; i <= 4; i++) {
+    const dot = document.getElementById('sd' + i)
+    const line = document.getElementById('sl' + i)
+    dot.className = 'step-dot' + (i < active ? ' done' : i === active ? ' active' : '')
+    if (line) line.className = 'step-line' + (i < active ? ' done' : '')
+  }
+}
+
+function goTo(screenId, step) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'))
+  document.getElementById(screenId).classList.add('active')
+  updateStepBar(step)
+}
+
+function selectGoal(goal) {
+  state.goal = goal
+  const data = GOAL_MAP[goal]
+  document.getElementById('s2-title').textContent = data.title
+  document.getElementById('s2-sub').textContent = data.sub
+  const container = document.getElementById('s2-cards')
+  container.innerHTML = ''
+  data.menus.forEach(m => {
+    const el = document.createElement('div')
+    el.className = 'card'
+    el.style.marginBottom = '10px'
+    el.innerHTML = `
+      <div class="card-row">
+        <div>
+          <div class="card-title">${m.name}${m.recommended ? '<span class="recommended">おすすめ</span>' : ''}</div>
+          <div class="card-desc">${m.desc}</div>
+        </div>
+      </div>
+      <div class="card-row" style="margin-top:10px;">
+        <span class="tag ${m.tag}">${m.tag === 'tag-personal' ? 'マンツーマン' : m.tag === 'tag-group' ? 'グループ' : '施術'}</span>
+        <span class="price-badge">${m.singlePrice}〜</span>
+      </div>
+    `
+    el.onclick = () => pickMenu(m)
+    container.appendChild(el)
+  })
+  goTo('s2', 2)
+}
+
+function pickMenu(m) {
+  state.menuKey = m.key
+  state.menuName = m.name
+  state.singlePrice = m.singlePrice
+  state.ticketBestPrice = m.ticketBest
+  document.getElementById('s3-menu-name').textContent = m.name
+  document.getElementById('single-price').textContent = m.singlePrice
+  document.getElementById('ticket-price').textContent = m.ticketBest + '/回〜'
+  goTo('s3', 3)
+}
+
+function selectUsage(usage) {
+  state.usage = usage
+  if (usage === 'single') {
+    goTo('s4-single', 4)
+  } else {
+    buildFreqGrid()
+    document.getElementById('s4t-sub').textContent = state.menuName + 'の月謝プラン'
+    goTo('s4-ticket', 4)
+  }
+}
+
+function buildFreqGrid() {
+  const grid = document.getElementById('freqGrid')
+  grid.innerHTML = ''
+  const tickets = TICKET_DATA[state.menuKey] || []
+  tickets.forEach((t, i) => {
+    const el = document.createElement('div')
+    el.className = 'card'
+    el.style.textAlign = 'center'
+    el.innerHTML = `
+      ${i === 0 ? '<span class="recommended">お得</span>' : ''}
+      <div class="card-title" style="font-size:15px;">${t.label}</div>
+      <div class="price-badge" style="margin-top:8px;">${t.price}</div>
+      <div class="price-unit">${t.unit}</div>
+    `
+    el.onclick = () => selectFreq(t.label, t.price)
+    grid.appendChild(el)
+  })
+}
+
+function selectFreq(label, price) {
+  state.freqName = label
+  state.freqPrice = price
+  buildConfirm()
+  goTo('s5', 5)
+}
+
+function selectDate(date) {
+  state.date = date
+  buildConfirm()
+  goTo('s5', 5)
+}
+
+function buildConfirm() {
+  document.getElementById('cf-menu').textContent = state.menuName
+  if (state.usage === 'single') {
+    document.getElementById('cf-usage').textContent = '単発予約'
+    document.getElementById('cf-price').textContent = state.singlePrice
+    document.getElementById('cf-date').textContent = state.date
+    document.getElementById('cf-date-row').style.display = ''
+  } else {
+    document.getElementById('cf-usage').textContent = '回数券（' + state.freqName + '）'
+    document.getElementById('cf-price').textContent = state.freqPrice
+    document.getElementById('cf-date-row').style.display = 'none'
+  }
+}
+
+function goToS4Back() {
+  if (state.usage === 'single') goTo('s4-single', 4)
+  else goTo('s4-ticket', 4)
+}
+
+updateStepBar(1)
+</script>
+</body>
+</html>

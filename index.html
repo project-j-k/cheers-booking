@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>予約フロー比較 | BodyCare Studio Cheers</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  .index-intro {
+    font-size: 13px;
+    color: #888;
+    line-height: 1.7;
+    margin-bottom: 4px;
+  }
+  .section-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: #aaa;
+    padding: 12px 0 6px;
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="header">
+    <h1>BodyCare Studio Cheers</h1>
+    <div class="subtitle">予約フロー UI プロトタイプ</div>
+  </div>
+
+  <div class="screen active" style="padding-top:24px;">
+    <p class="index-intro">
+      予約画面の3つの画面遷移案を比較するデモだわ。それぞれのカードから確認できるの。
+    </p>
+
+    <div class="section-label">案を選んで体験</div>
+
+    <a href="plan-a.html" class="plan-card">
+      <div class="plan-label">案 A</div>
+      <div class="plan-title">形態ファースト型</div>
+      <div class="plan-flow">
+        パーソナル / グループ / 施術<br>
+        → メニュー選択 → 単発 or 回数券<br>
+        → 頻度・確定
+      </div>
+      <div class="plan-arrow">→</div>
+    </a>
+
+    <a href="plan-b.html" class="plan-card">
+      <div class="plan-label">案 B</div>
+      <div class="plan-title">目的・状態ファースト型</div>
+      <div class="plan-flow">
+        目的を選ぶ（歪みを整えたい など）<br>
+        → 推奨メニュー提示 → 単発 or 回数券<br>
+        → 確定
+      </div>
+      <div class="plan-arrow">→</div>
+    </a>
+
+    <a href="plan-c.html" class="plan-card">
+      <div class="plan-label">案 C</div>
+      <div class="plan-title">単発 / 継続ファースト型</div>
+      <div class="plan-flow">
+        今回1回 or 定期的に通う<br>
+        → 形態 → メニュー選択<br>
+        → 確定
+      </div>
+      <div class="plan-arrow">→</div>
+    </a>
+
+    <div class="notice" style="margin-top:8px;">
+      各案は最後のステップ（確定画面）まで体験できるわ。「戻る」ボタンで前の画面に戻れるの。日時選択はダミーよ。
+    </div>
+  </div>
+</div>
+</body>
+</html>

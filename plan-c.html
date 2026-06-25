@@ -173,23 +173,6 @@
     <div class="freq-grid" id="fgGroup"></div>
   </div>
 
-  <!-- ④ 日時ダミー（単発） -->
-  <div class="screen" id="s4-date">
-    <button class="btn-back" onclick="goToS3Back()">← 戻る</button>
-    <p class="screen-title">日時を選んでね</p>
-    <p class="screen-sub">※ デモ画面のため実際の予約はできないわ</p>
-
-    <div class="card" onclick="selectDate('6/28（土）10:00')">
-      <div class="card-row"><div class="card-title">6/28（土） 10:00〜</div><span class="tag tag-group">○ 空き</span></div>
-    </div>
-    <div class="card" onclick="selectDate('6/28（土）14:00')">
-      <div class="card-row"><div class="card-title">6/28（土） 14:00〜</div><span class="tag tag-group">○ 空き</span></div>
-    </div>
-    <div class="card" onclick="selectDate('6/29（日）11:00')">
-      <div class="card-row"><div class="card-title">6/29（日） 11:00〜</div><span class="tag tag-group">○ 空き</span></div>
-    </div>
-  </div>
-
   <!-- 確定 -->
   <div class="screen" id="s5">
     <button class="btn-back" onclick="goToS5Back()">← 戻る</button>
@@ -213,7 +196,7 @@
         <span class="confirm-value" id="cf-date">—</span>
       </div>
     </div>
-    <button class="btn-primary" onclick="goToStore()">この内容で予約する（予約ページへ）</button>
+    <button class="btn-primary" id="confirm-btn" onclick="goToStore()">この内容で予約する（予約ページへ）</button>
   </div>
 </div>
 
@@ -333,8 +316,8 @@ function selectSingleMenu(name, price) {
   state.price = price
   state.usageLabel = '単発予約'
   state.storeUrl = NAME_TO_SINGLE_URL[name] || ''
-  state.fromDate = 's4-date'
-  goTo('s4-date', 4)
+  buildConfirmSingle()
+  goTo('s5', 4)
 }
 
 function selectTicket(name, price, freqLabel) {
@@ -358,8 +341,8 @@ function buildConfirmSingle() {
   document.getElementById('cf-menu').textContent = state.menuName
   document.getElementById('cf-usage').textContent = '単発予約'
   document.getElementById('cf-price').textContent = state.price
-  document.getElementById('cf-date').textContent = state.date
-  document.getElementById('cf-date-row').style.display = ''
+  document.getElementById('cf-date-row').style.display = 'none'
+  document.getElementById('confirm-btn').textContent = 'この内容で予約する（予約ページへ）'
 }
 
 function buildConfirmTicket() {
@@ -367,6 +350,7 @@ function buildConfirmTicket() {
   document.getElementById('cf-usage').textContent = state.usageLabel
   document.getElementById('cf-price').textContent = state.price
   document.getElementById('cf-date-row').style.display = 'none'
+  document.getElementById('confirm-btn').textContent = 'チケットを購入する（購入ページへ）'
 }
 
 function goToS3Back() {
@@ -374,8 +358,7 @@ function goToS3Back() {
 }
 
 function goToS5Back() {
-  if (state.mode === 'single') goTo('s4-date', 4)
-  else goTo(state.s3screen, 3)
+  goTo(state.s3screen, 3)
 }
 
 updateStepBar(1)

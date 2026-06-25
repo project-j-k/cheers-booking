@@ -166,39 +166,7 @@
     </div>
   </div>
 
-  <!-- ④-A 単発：日時選択（ダミー） -->
-  <div class="screen" id="s4-single">
-    <button class="btn-back" onclick="goTo('s3', 3)">← 戻る</button>
-    <p class="screen-title">日時を選んでね</p>
-    <p class="screen-sub">※ デモ画面のため実際の予約はできないわ</p>
-
-    <div class="card" onclick="selectDate('6/28（土）10:00')">
-      <div class="card-row">
-        <div class="card-title">6/28（土） 10:00〜</div>
-        <span class="tag tag-group">○ 空き</span>
-      </div>
-    </div>
-    <div class="card" onclick="selectDate('6/28（土）14:00')">
-      <div class="card-row">
-        <div class="card-title">6/28（土） 14:00〜</div>
-        <span class="tag tag-group">○ 空き</span>
-      </div>
-    </div>
-    <div class="card" onclick="selectDate('6/29（日）11:00')">
-      <div class="card-row">
-        <div class="card-title">6/29（日） 11:00〜</div>
-        <span class="tag tag-group">○ 空き</span>
-      </div>
-    </div>
-    <div class="card" style="opacity:.4; cursor:default;">
-      <div class="card-row">
-        <div class="card-title">6/30（月） 10:00〜</div>
-        <span class="tag" style="background:#f0f0f0;color:#bbb;">× 満席</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- ④-B 回数券：頻度選択 -->
+  <!-- ④ 回数券：頻度選択 -->
   <div class="screen" id="s4-ticket">
     <button class="btn-back" onclick="goTo('s3', 3)">← 戻る</button>
     <p class="screen-title">月に何回通う？</p>
@@ -231,7 +199,7 @@
       </div>
     </div>
 
-    <button class="btn-primary" onclick="goToStore()">この内容で予約する（予約ページへ）</button>
+    <button class="btn-primary" id="confirm-btn" onclick="goToStore()">この内容で予約する（予約ページへ）</button>
   </div>
 </div>
 
@@ -327,7 +295,8 @@ function goToStep2Back() {
 function selectUsage(usage) {
   state.usage = usage
   if (usage === 'single') {
-    goTo('s4-single', 4)
+    buildConfirm()
+    goTo('s5', 4)
   } else {
     buildFreqGrid()
     document.getElementById('s4-ticket-sub').textContent = state.menuName + 'の月謝プラン'
@@ -369,20 +338,21 @@ function selectDate(date) {
 
 function buildConfirm() {
   document.getElementById('cf-menu').textContent = state.menuName
+  document.getElementById('cf-date-row').style.display = 'none'
+  const btn = document.getElementById('confirm-btn')
   if (state.usage === 'single') {
     document.getElementById('cf-usage').textContent = '単発予約'
     document.getElementById('cf-price').textContent = state.singlePrice
-    document.getElementById('cf-date').textContent = state.date
-    document.getElementById('cf-date-row').style.display = ''
+    btn.textContent = 'この内容で予約する（予約ページへ）'
   } else {
     document.getElementById('cf-usage').textContent = '回数券（' + state.freqName + '）'
     document.getElementById('cf-price').textContent = state.freqPrice
-    document.getElementById('cf-date-row').style.display = 'none'
+    btn.textContent = 'チケットを購入する（購入ページへ）'
   }
 }
 
 function goToS4Back() {
-  if (state.usage === 'single') goTo('s4-single', 4)
+  if (state.usage === 'single') goTo('s3', 3)
   else goTo('s4-ticket', 4)
 }
 

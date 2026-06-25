@@ -64,7 +64,7 @@
 
   <!-- ② メニュー選択（パーソナル） -->
   <div class="screen" id="s2-personal">
-    <div class="nav-row"><button class="btn-back" onclick="goTo('s1', 1)">← 戻る</button><button class="btn-reset" onclick="resetToTop()">↩ 最初から</button></div>
+    <button class="btn-back" onclick="goTo('s1', 1)">← 戻る</button>
     <p class="screen-title">メニューを選んでね</p>
     <p class="screen-sub">パーソナルトレーニング</p>
 
@@ -93,11 +93,16 @@
         <span class="price-badge">7,000円〜</span>
       </div>
     </div>
+
+    <div class="spacer"></div>
+    <div class="bottom-actions">
+      <button class="btn-secondary" onclick="resetToTop()">最初から選び直す</button>
+    </div>
   </div>
 
   <!-- ② メニュー選択（グループ） -->
   <div class="screen" id="s2-group">
-    <div class="nav-row"><button class="btn-back" onclick="goTo('s1', 1)">← 戻る</button><button class="btn-reset" onclick="resetToTop()">↩ 最初から</button></div>
+    <button class="btn-back" onclick="goTo('s1', 1)">← 戻る</button>
     <p class="screen-title">プログラムを選んでね</p>
     <p class="screen-sub">グループレッスン（各 2,200円〜）</p>
 
@@ -130,11 +135,16 @@
         <span class="price-badge">2,200円〜</span>
       </div>
     </div>
+
+    <div class="spacer"></div>
+    <div class="bottom-actions">
+      <button class="btn-secondary" onclick="resetToTop()">最初から選び直す</button>
+    </div>
   </div>
 
   <!-- ③ 単発 or 回数券 -->
   <div class="screen" id="s3">
-    <div class="nav-row"><button class="btn-back" onclick="goToStep2Back()">← 戻る</button><button class="btn-reset" onclick="resetToTop()">↩ 最初から</button></div>
+    <button class="btn-back" onclick="goToStep2Back()">← 戻る</button>
     <p class="screen-title">ご利用方法を選んでね</p>
     <p class="screen-sub" id="s3-menu-name"></p>
 
@@ -157,19 +167,29 @@
         <span class="price-unit">1回あたり（最安）</span>
       </div>
     </div>
+
+    <div class="spacer"></div>
+    <div class="bottom-actions">
+      <button class="btn-secondary" onclick="resetToTop()">最初から選び直す</button>
+    </div>
   </div>
 
   <!-- ④ 回数券：頻度選択 -->
   <div class="screen" id="s4-ticket">
-    <div class="nav-row"><button class="btn-back" onclick="goTo('s3', 3)">← 戻る</button><button class="btn-reset" onclick="resetToTop()">↩ 最初から</button></div>
+    <button class="btn-back" onclick="goTo('s3', 3)">← 戻る</button>
     <p class="screen-title">月に何回通う？</p>
     <p class="screen-sub" id="s4-ticket-sub"></p>
     <div class="freq-grid" id="freqGrid"></div>
+
+    <div class="spacer"></div>
+    <div class="bottom-actions">
+      <button class="btn-secondary" onclick="resetToTop()">最初から選び直す</button>
+    </div>
   </div>
 
   <!-- ⑤ 確定 -->
   <div class="screen" id="s5">
-    <div class="nav-row"><button class="btn-back" onclick="goToS4Back()">← 戻る</button><button class="btn-reset" onclick="resetToTop()">↩ 最初から</button></div>
+    <button class="btn-back" onclick="goToS4Back()">← 戻る</button>
     <p class="screen-title">内容を確認してね</p>
 
     <div class="confirm-box">
@@ -191,7 +211,10 @@
       </div>
     </div>
 
-    <button class="btn-primary" id="confirm-btn" onclick="goToStore()">この内容で予約する（予約ページへ）</button>
+    <div class="bottom-actions">
+      <button class="btn-primary" id="confirm-btn" onclick="goToStore()">この内容で予約する（予約ページへ）</button>
+      <button class="btn-secondary" onclick="resetToTop()">最初から選び直す</button>
+    </div>
   </div>
 </div>
 

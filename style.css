@@ -234,6 +234,24 @@ body {
 }
 .btn-back:hover { opacity: 1; }
 
+.btn-reset {
+  display: inline-flex;
+  align-items: center;
+  background: none;
+  border: none;
+  color: #aaa;
+  font-size: 12px;
+  cursor: pointer;
+  padding: 4px 0;
+}
+.btn-reset:hover { color: var(--primary); }
+
+.nav-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 /* ===== Confirm Box ===== */
 .confirm-box {
   background: #fff;

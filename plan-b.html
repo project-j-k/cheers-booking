@@ -10,7 +10,7 @@
 <div class="app">
   <div class="header">
     <h1>BodyCare Studio Cheers</h1>
-    <div class="subtitle">案B：目的・状態ファースト型</div>
+    <div class="subtitle">案 B</div>
   </div>
 
   <div class="step-indicator">
@@ -148,21 +148,41 @@
         <span class="confirm-value" id="cf-date">—</span>
       </div>
     </div>
-    <div class="notice">※ デモ用のダミー確定画面よ。実際の予約はスタジオの予約サイトから行ってね。</div>
-    <button class="btn-primary" onclick="goTo('s6', 5)">予約を確定する</button>
-  </div>
-
-  <!-- 完了 -->
-  <div class="screen" id="s6" style="justify-content:center; align-items:center; text-align:center; gap:16px;">
-    <span class="success-icon">🎉</span>
-    <p class="success-title">予約が完了したわ！</p>
-    <p class="success-sub">スタジオでお待ちしているわ。<br>当日は動きやすい服装でいらしてね。</p>
-    <a href="index.html" class="btn-primary" style="margin-top:16px;">トップに戻る</a>
+    <button class="btn-primary" onclick="goToStore()">この内容で予約する（予約ページへ）</button>
   </div>
 </div>
 
 <script>
 const state = { goal: '', menuKey: '', menuName: '', singlePrice: '', ticketBestPrice: '', usage: '', date: '', freqName: '', freqPrice: '' }
+
+const BASE_RESERVE = 'https://bodycarestudiocheers.stores.jp/reserve/f3275c5ca86ccd75c033/'
+const BASE_PRODUCT = 'https://bodycarestudiocheers.stores.jp/products/'
+const SINGLE_URLS = {
+  premium:  BASE_RESERVE + '2707637',
+  standard: BASE_RESERVE + '1346461',
+  yoga:     BASE_RESERVE + '3222074',
+  pilates:  BASE_RESERVE + '4973648',
+  barre:    BASE_RESERVE + '4390043',
+  massage:  BASE_RESERVE + '3804065',
+}
+const TICKET_IDS = {
+  premium:  { '月4回': '446017', '月3回': '336649', '月2回': '373376', '月1回': '571645' },
+  standard: { '月4回': '419793', '月3回': '104664', '月2回': '114412', '月1回': '305451' },
+  yoga:     { '月5回': '130071', '月3回': '526487', '月1回': '569661' },
+  pilates:  { '月5回': '130071', '月3回': '526487', '月1回': '569661' },
+  barre:    { '月5回': '130071', '月3回': '526487', '月1回': '569661' },
+  massage:  { '1回': '393994' },
+}
+function goToStore() {
+  let url
+  if (state.usage === 'single') {
+    url = SINGLE_URLS[state.menuKey]
+  } else {
+    const id = (TICKET_IDS[state.menuKey] || {})[state.freqName]
+    url = id ? BASE_PRODUCT + id : null
+  }
+  if (url) window.open(url, '_blank')
+}
 
 const GOAL_MAP = {
   fix: {
